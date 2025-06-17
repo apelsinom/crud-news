@@ -1,44 +1,41 @@
-import js from "@eslint/js";
-import globals from "globals";
-import tseslint from "typescript-eslint";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tailwindcss from "eslint-plugin-tailwindcss";
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tailwindcss from 'eslint-plugin-tailwindcss'
 
 export default tseslint.config(
   {
-    ignores: ["dist", "node_modules"],
+    ignores: ['dist', 'node_modules'],
   },
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      sourceType: "module",
+      sourceType: 'module',
       globals: globals.browser,
       parserOptions: {
-        project: ["./tsconfig.json"],
+        project: ['./tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
       tailwindcss: tailwindcss,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
-      "tailwindcss/no-custom-classname": "off",
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'tailwindcss/no-custom-classname': 'off',
     },
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
-      "plugin:react-hooks/recommended",
-      "plugin:tailwindcss/recommended",
-      "prettier",
+      'plugin:react-hooks/recommended',
+      'plugin:tailwindcss/recommended',
+      'prettier',
     ],
-  },
-);
+  }
+)
