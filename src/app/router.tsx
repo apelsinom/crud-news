@@ -9,7 +9,6 @@ import { NewsPage } from '@/features/news-page.tsx'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
     element: <App />,
     errorElement: <Error404 />,
     children: [

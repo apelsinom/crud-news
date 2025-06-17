@@ -11,9 +11,9 @@ export const Button = ({ variant = 'default', className, children, ...props }: B
 
   const variants = {
     default:
-      'bg-gray-200 text-black dark:bg-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700',
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    danger: 'bg-red-600 text-white hover:bg-red-700',
+      'bg-gray-200 text-black dark:bg-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-800',
+    primary: 'bg-blue-500 text-white hover:bg-blue-700',
+    danger: 'bg-red-500 text-white hover:bg-red-700',
   }
 
   return (
