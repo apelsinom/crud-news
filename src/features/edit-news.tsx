@@ -56,7 +56,7 @@ export const EditNews = () => {
           onChange={e => setContent(e.target.value)}
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
         />
-        <div className="flex gap-10">
+        <div className="flex gap-1 justify-between sm:justify-start sm:gap-10">
           <Link to={ROUTES.HOME}>
             <Button>Go Back Home</Button>
           </Link>
