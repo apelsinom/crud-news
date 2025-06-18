@@ -13,7 +13,7 @@ export const OneNewsBlock = ({ newsItem }: Props) => {
 
   return (
     <li className="flex flex-col gap-2 pb-5 border-b border-gray-200" key={newsItem?.id}>
-      <h2 className="text-xl md:text-2xl font-semibold">{newsItem.title}</h2>
+      <h2 className="text-xl md:text-2xl font-semibold leading-tight">{newsItem.title}</h2>
       <img src="/news.svg" alt="News" className="w-20 h-20 object-contain" />
       <p className="text-sm md:text-xl line-clamp-3 text-gray-700 dark:text-gray-300">
         {newsItem.content}

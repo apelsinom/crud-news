@@ -8,7 +8,9 @@ function App() {
         <div className="flex w-full items-center justify-between mb-1">
           <div className="flex gap-1 items-center">
             <img className="max-h-10" src={'./../world-news.svg'} alt={'News'} />
-            <h1 className="text-[#023ef2] font-bold text-xl md:text-2xl">BubblyNews </h1>
+            <h1 className="tracking-tight text-[#023ef2] font-bold text-xl md:text-2xl">
+              BubblyNews{' '}
+            </h1>
           </div>
           <ThemeSwitcher />
         </div>

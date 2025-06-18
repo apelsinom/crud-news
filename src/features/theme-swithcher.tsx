@@ -6,7 +6,7 @@ export const ThemeSwitcher = () => {
 
   return (
     <Button onClick={toggleTheme} variant="default">
-      {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
     </Button>
   )
 }
