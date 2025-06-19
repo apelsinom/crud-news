@@ -43,7 +43,7 @@ export const AddNews = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-xl md:text-2xl">Add News</h1>
+      <h1 className="text-xl md:text-2xl">News adding page</h1>
       <form onSubmit={e => void handleSave(e)} className="flex flex-col gap-5">
         <TextareaAutosize
           value={title}
@@ -51,7 +51,7 @@ export const AddNews = () => {
           placeholder="Enter news title"
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
         />
-        <span className="text-light-900 text-sm">{title.length}/100</span>
+        <span className="text-sm text-right mt-[-16px]">{title.length}/100</span>
         <div className="flex items-start justify-start gap-5">
           <label
             htmlFor="file-upload"
