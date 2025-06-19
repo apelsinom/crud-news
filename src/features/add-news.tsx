@@ -51,6 +51,7 @@ export const AddNews = () => {
           placeholder="Enter news title"
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
         />
+        <span className="text-light-900 text-sm">{title.length}/100</span>
         <div className="flex items-start justify-start gap-5">
           <label
             htmlFor="file-upload"
@@ -75,6 +76,7 @@ export const AddNews = () => {
           placeholder="Enter news content"
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
         />
+        <span className="text-sm text-right mt-[-16px]">{title.length}/1000</span>
         <div className="flex gap-10">
           <Link to={ROUTES.HOME}>
             <Button>Go Back Home</Button>

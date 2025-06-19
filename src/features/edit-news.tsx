@@ -78,6 +78,7 @@ export const EditNews = () => {
           onChange={e => setTitle(e.target.value)}
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
         />
+        <span className="text-sm text-right mt-[-16px]">{title.length}/100</span>
         <div className="flex items-start justify-start gap-5">
           <div className="flex flex-col gap-5">
             <label
@@ -114,6 +115,7 @@ export const EditNews = () => {
           onChange={e => setContent(e.target.value)}
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
         />
+        <span className="text-sm text-right mt-[-16px]">{content.length}/1000</span>
         <div className="flex gap-1 justify-between sm:justify-start sm:gap-10">
           <Link to={ROUTES.HOME}>
             <Button>Go Back News</Button>
