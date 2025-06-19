@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Button } from '@/shared/ui/button.tsx'
 import type { NewsType } from '@/shared/types/news-type.ts'
+import { useState } from 'react'
+import { DeleteModal } from '@/shared/ui/delete-modal.tsx'
 
 type Props = {
   newsItem: NewsType
@@ -9,6 +11,7 @@ type Props = {
 }
 
 export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   return (
     <li className="flex flex-col gap-2 pb-5 border-b border-gray-200">
       <h2 className="text-xl md:text-2xl font-semibold leading-tight">{newsItem.title}</h2>
@@ -24,10 +27,19 @@ export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
         <Link to={`${ROUTES.EDIT}/${newsItem.id}`}>
           <Button variant={'primary'}>Edit news</Button>
         </Link>
-        <Button onClick={() => onDelete(newsItem.id)} variant={'danger'}>
+        <Button onClick={() => setIsOpenDeleteModal(true)} variant={'danger'}>
           Delete news
         </Button>
       </div>
+      {isOpenDeleteModal && (
+        <DeleteModal
+          actionTitle={'Delete News'}
+          cancelTitle={'Go Back News'}
+          title={`Delete news: ${newsItem.title}?`}
+          handleDelete={() => onDelete(newsItem.id)}
+          onOpenChange={() => setIsOpenDeleteModal(false)}
+        />
+      )}
     </li>
   )
 }

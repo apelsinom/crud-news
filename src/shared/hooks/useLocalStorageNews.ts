@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { news as defaultNews } from '@/shared/news'
 import type { NewsType } from '@/shared/types/news-type.ts'
+import { toast } from 'react-toastify'
 
 const LOCAL_STORAGE_KEY = 'news-list'
 
@@ -22,16 +23,21 @@ export const useLocalStorageNews = () => {
     setNewsList(list)
   }
 
-  const addNews = (item: NewsType) => save([item, ...newsList])
+  const addNews = (item: NewsType) => {
+    save([item, ...newsList])
+    toast.success('News successfully added')
+  }
 
   const updateNews = (item: NewsType) => {
     const updated = newsList.map(n => (n.id === item.id ? item : n))
     save(updated)
+    toast.success('News successfully edited')
   }
 
   const deleteNews = (id: string) => {
     const filtered = newsList.filter(n => n.id !== id)
     save(filtered)
+    toast.success('News successfully deleted')
   }
 
   return {
