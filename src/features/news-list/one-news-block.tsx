@@ -13,7 +13,7 @@ type Props = {
 export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   return (
-    <li className="flex flex-col gap-2 pb-5 border-b border-gray-200">
+    <li className="flex flex-col gap-2 pt-3 md:pt-5 border-t border-gray-200">
       <h2 className="text-xl md:text-2xl font-semibold leading-tight">{newsItem.title}</h2>
       {newsItem.image && (
         <Link to={`${ROUTES.NEWS}/${newsItem.id}`}>

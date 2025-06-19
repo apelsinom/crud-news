@@ -23,7 +23,7 @@ export const NewsList = () => {
       {newsList.length === 0 ? (
         <NoNewsPage />
       ) : (
-        <ul className="space-y-8">
+        <ul className="mt-2 sm:mt-3 space-y-8">
           {newsList?.map(newsItem => (
             <OneNewsBlock key={newsItem.id} newsItem={newsItem} onDelete={handleDelete} />
           ))}
