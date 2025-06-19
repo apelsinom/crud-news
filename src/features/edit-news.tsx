@@ -72,7 +72,7 @@ export const EditNews = () => {
   return (
     <div>
       <form className="flex flex-col gap-5" onSubmit={e => void handleSave(e)}>
-        <h1 className="text-xl md:text-2xl">Edit News</h1>
+        <h1 className="text-xl md:text-2xl">News editing page</h1>
         <TextareaAutosize
           value={title}
           onChange={e => setTitle(e.target.value)}
@@ -105,7 +105,7 @@ export const EditNews = () => {
             <img
               src={imagePreview}
               alt="Preview"
-              className="max-w-[60%] md:max-w-[25%] object-contain rounded-lg"
+              className="max-w-[50%] md:max-w-[25%] object-contain rounded-lg"
             />
           )}
         </div>

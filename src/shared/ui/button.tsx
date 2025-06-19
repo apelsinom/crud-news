@@ -8,7 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ({ variant = 'default', className, children, ...props }: ButtonProps) => {
   const base =
-    'whitespace-nowrap tracking-tighter px-3 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
+    'tracking-tighter px-2 py-1 sm:px-3 sm:py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
 
   const variants = {
     default:

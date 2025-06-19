@@ -15,7 +15,7 @@ export const NewsList = () => {
   }
 
   return (
-    <div className="flex flex-col mt-3 mx-auto relative">
+    <div className="flex flex-col mt-1 sm:mt-3 mx-auto relative">
       <Link className="self-end sticky top-4 right-4" to={ROUTES.ADD}>
         <Button variant={'created'}>Add news</Button>
       </Link>
