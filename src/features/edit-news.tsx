@@ -87,13 +87,15 @@ export const EditNews = () => {
             >
               {imagePreview ? 'Change image' : 'Choose image'}
             </label>
-            <Button
-              type="button"
-              onClick={() => setIsOpenDeleteImageModal(true)}
-              variant={'outline'}
-            >
-              Remove image
-            </Button>
+            {imagePreview && (
+              <Button
+                type="button"
+                onClick={() => setIsOpenDeleteImageModal(true)}
+                variant={'outline'}
+              >
+                Remove image
+              </Button>
+            )}
           </div>
           <input
             id="file-upload"
