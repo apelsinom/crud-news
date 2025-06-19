@@ -1,4 +1,4 @@
-import { ThemeSwitcher } from '@/features/theme-swithcher.tsx'
+import { ThemeSwitcher } from '@/shared/ui/theme-swithcher.tsx'
 import { Outlet } from 'react-router-dom'
 
 function App() {

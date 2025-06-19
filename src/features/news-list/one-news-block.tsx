@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Button } from '@/shared/ui/button.tsx'
-import type { NewsType } from '@/shared/types/news.ts'
-import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
+import type { NewsType } from '@/shared/types/news-type.ts'
 
 type Props = {
   newsItem: NewsType
+  onDelete: (id: string) => void
 }
 
-export const OneNewsBlock = ({ newsItem }: Props) => {
-  const { deleteNews } = useLocalStorageNews()
-
+export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
   return (
-    <li className="flex flex-col gap-2 pb-5 border-b border-gray-200" key={newsItem?.id}>
+    <li className="flex flex-col gap-2 pb-5 border-b border-gray-200">
       <h2 className="text-xl md:text-2xl font-semibold leading-tight">{newsItem.title}</h2>
       <img src="/news.svg" alt="News" className="w-20 h-20 object-contain" />
       <p className="text-sm md:text-xl line-clamp-3 text-gray-700 dark:text-gray-300">
@@ -26,7 +24,7 @@ export const OneNewsBlock = ({ newsItem }: Props) => {
         <Link to={`${ROUTES.EDIT}/${newsItem.id}`}>
           <Button variant={'primary'}>Edit news</Button>
         </Link>
-        <Button onClick={() => deleteNews(newsItem.id)} variant={'danger'}>
+        <Button onClick={() => onDelete(newsItem.id)} variant={'danger'}>
           Delete news
         </Button>
       </div>

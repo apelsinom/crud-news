@@ -15,10 +15,10 @@ export const AddNews = () => {
     e.preventDefault()
 
     const newNews = {
-      id: Date.now().toString(), // Используем ID на основе текущего времени
+      id: Date.now().toString(),
       title,
       content,
-      date: new Date().toLocaleDateString(), // Дата добавления новости
+      date: new Date().toLocaleDateString('ru-BY'),
     }
 
     addNews(newNews)

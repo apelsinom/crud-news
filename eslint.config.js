@@ -5,10 +5,14 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tailwindcss from 'eslint-plugin-tailwindcss'
 
-export default tseslint.config(
+export default [
   {
     ignores: ['dist', 'node_modules'],
   },
+
+  js.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -16,7 +20,7 @@ export default tseslint.config(
       sourceType: 'module',
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.json'],
+        project: ['./tsconfig.app.json'], // ✅ ВАЖНО: добавить путь к tsconfig
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -30,12 +34,5 @@ export default tseslint.config(
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'tailwindcss/no-custom-classname': 'off',
     },
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      'plugin:react-hooks/recommended',
-      'plugin:tailwindcss/recommended',
-      'prettier',
-    ],
-  }
-)
+  },
+]

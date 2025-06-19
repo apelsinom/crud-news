@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { news as defaultNews } from '@/shared/news'
-import type { NewsType } from '@/shared/types/news'
+import type { NewsType } from '@/shared/types/news-type.ts'
 
 const LOCAL_STORAGE_KEY = 'news-list'
 
@@ -10,7 +10,7 @@ export const useLocalStorageNews = () => {
   useEffect(() => {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
     if (stored) {
-      setNewsList(JSON.parse(stored))
+      setNewsList(JSON.parse(stored) as NewsType[])
     } else {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultNews))
       setNewsList(defaultNews)
@@ -36,6 +36,7 @@ export const useLocalStorageNews = () => {
 
   return {
     newsList,
+    setNewsList,
     addNews,
     updateNews,
     deleteNews,

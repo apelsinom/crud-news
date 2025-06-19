@@ -1,4 +1,4 @@
-import type { NewsType } from '@/shared/types/news.ts'
+import type { NewsType } from '@/shared/types/news-type.ts'
 
 export const news: NewsType[] = [
   {

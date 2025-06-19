@@ -3,4 +3,5 @@ export type NewsType = {
   title: string
   content: string
   date: string
+  image?: string
 }

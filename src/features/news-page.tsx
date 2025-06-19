@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
-import { Error404 } from '@/features/Error404.tsx'
+import { Error404 } from '@/shared/ui/error-404.tsx'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Button } from '@/shared/ui/button.tsx'
 

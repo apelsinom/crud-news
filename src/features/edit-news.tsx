@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
 import { ROUTES } from '@/shared/types/routes.ts'
-import { Error404 } from '@/features/Error404.tsx'
+import { Error404 } from '@/shared/ui/error-404.tsx'
 import { type FormEvent, useEffect, useState } from 'react'
 import { Button } from '@/shared/ui/button.tsx'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -34,7 +34,7 @@ export const EditNews = () => {
       title,
       content,
     })
-    navigate(ROUTES.HOME)
+    navigate(`${ROUTES.NEWS}/${newsId}`)
   }
 
   const handleDelete = () => {
