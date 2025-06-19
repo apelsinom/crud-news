@@ -17,7 +17,11 @@ export const NewsPage = () => {
   return (
     <div className="flex flex-col gap-3">
       <h2 className="text-xl font-semibold">{newsItem.title}</h2>
-      <img src="/news.svg" alt="News" className="w-20 h-20 object-contain" />
+      <img
+        src={newsItem.image}
+        alt="News"
+        className="max-w-[60%] md:max-w-[25%] object-contain rounded-lg"
+      />
       <p className="text-gray-700 dark:text-gray-300">{newsItem.content}</p>
       <span className="text-sm text-gray-500 dark:text-gray-400">{newsItem.date}</span>
       <Link to={ROUTES.HOME}>

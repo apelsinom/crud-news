@@ -2,7 +2,7 @@ import { type ButtonHTMLAttributes, type ReactNode } from 'react'
 import clsx from 'clsx'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'default' | 'primary' | 'danger' | 'created'
+  variant?: 'default' | 'primary' | 'danger' | 'created' | 'outline'
   children: ReactNode
 }
 
@@ -16,6 +16,7 @@ export const Button = ({ variant = 'default', className, children, ...props }: B
     primary: 'bg-blue-900 text-white hover:bg-blue-700',
     danger: 'bg-red-900 text-white hover:bg-red-700',
     created: 'bg-green-900 text-white hover:bg-green-700',
+    outline: 'border bg-gray-100 dark:bg-dark-bg hover:bg-gray-200 dark:hover:bg-gray-800',
   }
 
   return (

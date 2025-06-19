@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { news as defaultNews } from '@/shared/news'
+import { news as defaultNews } from '@/shared/data/news.ts'
 import type { NewsType } from '@/shared/types/news-type.ts'
 import { toast } from 'react-toastify'
 
