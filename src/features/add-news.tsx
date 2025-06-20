@@ -1,21 +1,35 @@
-import { type ChangeEvent, type FormEvent, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { type ChangeEvent, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/shared/ui/button.tsx'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { convertToBase64 } from '@/shared/hooks/convertToBase64.ts'
+import { useForm } from 'react-hook-form'
+import { type FormData, schema } from '@/shared/types/zod-schema.ts'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ErrorForInput } from '@/shared/ui/error-for-input.tsx'
 
 export const AddNews = () => {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const { addNews } = useLocalStorageNews()
   const navigate = useNavigate()
 
-  const handleSave = async (e: FormEvent) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+  })
+
+  const title = watch('title') || ''
+  const content = watch('content') || ''
+
+  const onSubmit = async (data: FormData) => {
     let base64Image: string | undefined
     if (image) {
       base64Image = await convertToBase64(image)
@@ -23,8 +37,8 @@ export const AddNews = () => {
 
     const newNews = {
       id: Date.now().toString(),
-      title,
-      content,
+      title: data.title,
+      content: data.content,
       date: new Date().toLocaleDateString('ru-BY'),
       image: base64Image,
     }
@@ -44,14 +58,17 @@ export const AddNews = () => {
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-xl md:text-2xl">News adding page</h1>
-      <form onSubmit={e => void handleSave(e)} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <TextareaAutosize
-          value={title}
-          onChange={e => setTitle(e.target.value)}
           placeholder="Enter news title"
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
+          {...register('title')}
         />
-        <span className="text-sm text-right mt-[-16px]">{title.length}/100</span>
+        <ErrorForInput
+          errorMessage={errors.title?.message}
+          inputName={title}
+          maxLengthStr={'100'}
+        />
         <div className="flex items-start justify-start gap-5">
           <label
             htmlFor="file-upload"
@@ -71,12 +88,15 @@ export const AddNews = () => {
           )}
         </div>
         <TextareaAutosize
-          value={content}
-          onChange={e => setContent(e.target.value)}
           placeholder="Enter news content"
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
+          {...register('content')}
         />
-        <span className="text-sm text-right mt-[-16px]">{title.length}/1000</span>
+        <ErrorForInput
+          errorMessage={errors.content?.message}
+          inputName={content}
+          maxLengthStr={'1000'}
+        />
         <div className="flex gap-10">
           <Link to={ROUTES.HOME}>
             <Button>Go Back Home</Button>

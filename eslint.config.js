@@ -20,7 +20,7 @@ export default [
       sourceType: 'module',
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.app.json'], // ✅ ВАЖНО: добавить путь к tsconfig
+        project: ['./tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -33,6 +33,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'tailwindcss/no-custom-classname': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
     },
   },
 ]

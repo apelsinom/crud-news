@@ -1,50 +1,69 @@
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Error404 } from '@/shared/ui/error-404.tsx'
-import { type ChangeEvent, type FormEvent, useEffect, useState } from 'react'
+import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/shared/ui/button.tsx'
 import TextareaAutosize from 'react-textarea-autosize'
 import { DeleteModal } from '@/shared/ui/delete-modal.tsx'
 import { convertToBase64 } from '@/shared/hooks/convertToBase64.ts'
+import { ErrorForInput } from '@/shared/ui/error-for-input.tsx'
+import { useForm } from 'react-hook-form'
+import { type FormData, schema } from '@/shared/types/zod-schema.ts'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export const EditNews = () => {
-  const [isOpenDeleteNewsModal, setIsOpenDeleteNewsModal] = useState(false)
-  const [isOpenDeleteImageModal, setIsOpenDeleteImageModal] = useState(false)
-  const [image, setImage] = useState<File | null>(null)
   const { newsId } = useParams<{ newsId: string }>()
   const { newsList, updateNews, deleteNews } = useLocalStorageNews()
   const navigate = useNavigate()
 
-  const newsItem = newsList.find(news => news.id === newsId)
+  const newsItem = useMemo(() => {
+    return newsList.find(news => news.id === newsId)
+  }, [newsList, newsId])
 
-  const [title, setTitle] = useState(newsItem?.title ?? '')
-  const [content, setContent] = useState(newsItem?.content ?? '')
+  const form = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+    defaultValues: {
+      title: newsItem?.title || '',
+      content: newsItem?.content || '',
+    },
+  })
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = form
+
+  const [isOpenDeleteNewsModal, setIsOpenDeleteNewsModal] = useState(false)
+  const [isOpenDeleteImageModal, setIsOpenDeleteImageModal] = useState(false)
+  const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | undefined>(newsItem?.image ?? '')
 
   useEffect(() => {
     if (newsItem) {
-      setTitle(newsItem.title)
-      setContent(newsItem.content)
+      form.reset({
+        title: newsItem.title,
+        content: newsItem.content,
+      })
       setImagePreview(newsItem.image)
     }
-  }, [newsItem])
+  }, [form, newsItem])
 
   if (!newsItem || !newsId) {
     return <Error404 />
   }
 
-  const handleSave = async (e: FormEvent) => {
-    e.preventDefault()
-
+  const onSubmit = async (data: FormData) => {
     let base64Image = imagePreview
     if (image) {
       base64Image = await convertToBase64(image)
     }
     updateNews({
       ...newsItem,
-      title,
-      content,
+      title: data.title,
+      content: data.content,
       image: base64Image,
     })
     navigate(`${ROUTES.NEWS}/${newsId}`)
@@ -71,14 +90,17 @@ export const EditNews = () => {
 
   return (
     <div>
-      <form className="flex flex-col gap-5" onSubmit={e => void handleSave(e)}>
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-xl md:text-2xl">News editing page</h1>
         <TextareaAutosize
-          value={title}
-          onChange={e => setTitle(e.target.value)}
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
+          {...register('title')}
         />
-        <span className="text-sm text-right mt-[-16px]">{title.length}/100</span>
+        <ErrorForInput
+          errorMessage={errors.title?.message}
+          inputName={watch('title') || ''}
+          maxLengthStr={'100'}
+        />
         <div className="flex items-start justify-start gap-5">
           <div className="flex flex-col gap-5">
             <label
@@ -113,11 +135,14 @@ export const EditNews = () => {
           )}
         </div>
         <TextareaAutosize
-          value={content}
-          onChange={e => setContent(e.target.value)}
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
+          {...register('content')}
         />
-        <span className="text-sm text-right mt-[-16px]">{content.length}/1000</span>
+        <ErrorForInput
+          errorMessage={errors.content?.message}
+          inputName={watch('content') || ''}
+          maxLengthStr={'1000'}
+        />
         <div className="flex gap-1 justify-between sm:justify-start sm:gap-10">
           <Link to={ROUTES.HOME}>
             <Button>Go Back News</Button>
