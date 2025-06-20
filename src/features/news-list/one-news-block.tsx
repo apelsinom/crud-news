@@ -43,7 +43,7 @@ export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
         <DeleteModal
           actionTitle={'Delete News'}
           cancelTitle={'Go Back News'}
-          title={`Delete news: ${newsItem.title}?`}
+          title={`Delete news: "${newsItem.title}" ?`}
           handleDelete={() => onDelete(newsItem.id)}
           onOpenChange={() => setIsOpenDeleteModal(false)}
         />
