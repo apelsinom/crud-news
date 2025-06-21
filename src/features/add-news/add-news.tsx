@@ -60,56 +60,50 @@ export const AddNews = () => {
   }
 
   return (
-    <div className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <h1 className="text-xl md:text-2xl">News adding page</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <TextareaAutosize
-          placeholder="Enter news title"
-          className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
-          {...register('title')}
+      <TextareaAutosize
+        placeholder="Enter news title"
+        className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
+        {...register('title')}
+      />
+      <ErrorForInput errorMessage={errors.title?.message} inputName={title} maxLengthStr={'100'} />
+      <div className="flex items-start justify-start gap-5">
+        <label
+          htmlFor="file-upload"
+          className="cursor-pointer inline-block px-4 py-2 border rounded bg-gray-100 dark:bg-dark-bg hover:bg-gray-200 dark:hover:bg-gray-800"
+        >
+          {image ? 'Change image' : 'Choose image'}
+        </label>
+        <input
+          id="file-upload"
+          type="file"
+          onChange={handleImageChange}
+          accept="image/*"
+          className="hidden"
         />
-        <ErrorForInput
-          errorMessage={errors.title?.message}
-          inputName={title}
-          maxLengthStr={'100'}
-        />
-        <div className="flex items-start justify-start gap-5">
-          <label
-            htmlFor="file-upload"
-            className="cursor-pointer inline-block px-4 py-2 border rounded bg-gray-100 dark:bg-dark-bg hover:bg-gray-200 dark:hover:bg-gray-800"
-          >
-            {image ? 'Change image' : 'Choose image'}
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            onChange={handleImageChange}
-            accept="image/*"
-            className="hidden"
-          />
-          {imagePreview && (
-            <img src={imagePreview} alt="Preview" className="max-w-xs h-auto rounded-lg" />
-          )}
-        </div>
-        <TextareaAutosize
-          placeholder="Enter news content"
-          className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
-          {...register('content')}
-        />
-        <ErrorForInput
-          errorMessage={errors.content?.message}
-          inputName={content}
-          maxLengthStr={'1000'}
-        />
-        <div className="flex gap-10">
-          <Link to={ROUTES.HOME}>
-            <Button>Go Back Home</Button>
-          </Link>
-          <Button type="submit" variant={'primary'}>
-            Save News
-          </Button>
-        </div>
-      </form>
-    </div>
+        {imagePreview && (
+          <img src={imagePreview} alt="Preview" className="max-w-xs h-auto rounded-lg" />
+        )}
+      </div>
+      <TextareaAutosize
+        placeholder="Enter news content"
+        className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
+        {...register('content')}
+      />
+      <ErrorForInput
+        errorMessage={errors.content?.message}
+        inputName={content}
+        maxLengthStr={'1000'}
+      />
+      <div className="flex gap-10">
+        <Link to={ROUTES.HOME}>
+          <Button>Go Back Home</Button>
+        </Link>
+        <Button type="submit" variant={'primary'}>
+          Save News
+        </Button>
+      </div>
+    </form>
   )
 }

@@ -96,8 +96,8 @@ export const EditNews = () => {
   }
 
   return (
-    <div>
-      <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <h1 className="text-xl md:text-2xl">News editing page</h1>
         <TextareaAutosize
           className="p-2 border border-gray-300 rounded dark:bg-dark-bg"
@@ -168,7 +168,7 @@ export const EditNews = () => {
           cancelTitle={'Return to Edit'}
           title={'Are you sure you want to delete this news item?'}
           handleDelete={handleRemoveNews}
-          onOpenChange={() => setIsOpenDeleteNewsModal(false)}
+          onClose={() => setIsOpenDeleteNewsModal(false)}
         />
       )}
       {isOpenDeleteImageModal && (
@@ -177,9 +177,9 @@ export const EditNews = () => {
           cancelTitle={'Return to Edit'}
           title={'Are you sure you want to delete this Image?'}
           handleDelete={handleRemoveImage}
-          onOpenChange={() => setIsOpenDeleteImageModal(false)}
+          onClose={() => setIsOpenDeleteImageModal(false)}
         />
       )}
-    </div>
+    </>
   )
 }

@@ -3,12 +3,15 @@ import { useNews } from '@/shared/hooks/use-news.ts'
 import { Error404 } from '@/shared/ui/error-404.tsx'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Button } from '@/shared/ui/button.tsx'
+import { useMemo } from 'react'
 
 export const NewsPage = () => {
   const { newsId } = useParams<{ newsId: string }>()
   const { newsList } = useNews()
 
-  const newsItem = newsList.find(news => news.id === newsId)
+  const newsItem = useMemo(() => {
+    return newsList.find(news => news.id === newsId)
+  }, [newsList, newsId])
 
   if (!newsItem || !newsId) {
     return <Error404 />

@@ -5,17 +5,11 @@ type Props = {
   title: string
   actionTitle: string
   cancelTitle: string
-  onOpenChange: () => void
+  onClose: () => void
   handleDelete: () => void
 }
 
-export const DeleteModal = ({
-  onOpenChange,
-  handleDelete,
-  title,
-  cancelTitle,
-  actionTitle,
-}: Props) => {
+export const DeleteModal = ({ onClose, handleDelete, title, cancelTitle, actionTitle }: Props) => {
   return createPortal(
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
       <div
@@ -24,7 +18,7 @@ export const DeleteModal = ({
       >
         <p className="mb-4 text-lg">{title}</p>
         <div className="flex justify-end gap-3">
-          <Button onClick={onOpenChange}>{cancelTitle}</Button>
+          <Button onClick={onClose}>{cancelTitle}</Button>
           <Button onClick={handleDelete} variant={'danger'}>
             {actionTitle}
           </Button>
