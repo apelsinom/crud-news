@@ -1,21 +1,26 @@
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
+import { useNews } from '@/shared/hooks/use-news.ts'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Error404 } from '@/shared/ui/error-404.tsx'
 import { type ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/shared/ui/button.tsx'
 import TextareaAutosize from 'react-textarea-autosize'
 import { DeleteModal } from '@/shared/ui/delete-modal.tsx'
-import { convertToBase64 } from '@/shared/hooks/convertToBase64.ts'
+import { convertToBase64 } from '@/shared/lib/convertToBase64.ts'
 import { ErrorForInput } from '@/shared/ui/error-for-input.tsx'
 import { useForm } from 'react-hook-form'
 import { type FormData, schema } from '@/shared/types/zod-schema.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-toastify'
 
 export const EditNews = () => {
   const { newsId } = useParams<{ newsId: string }>()
-  const { newsList, updateNews, deleteNews } = useLocalStorageNews()
   const navigate = useNavigate()
+
+  const { newsList, updateNews, deleteNews, deleteImage } = useNews({
+    onUpdate: () => toast.success('News successfully edited'),
+    onDelete: () => toast.success('News successfully deleted'),
+  })
 
   const newsItem = useMemo(() => {
     return newsList.find(news => news.id === newsId)
@@ -84,8 +89,10 @@ export const EditNews = () => {
   }
 
   const handleRemoveImage = () => {
+    deleteImage(newsId)
     setImage(null)
     setImagePreview('')
+    setIsOpenDeleteImageModal(false)
   }
 
   return (

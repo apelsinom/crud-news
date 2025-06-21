@@ -1,13 +1,16 @@
 import { ScrollToTopButton } from '@/shared/ui/scroll-button.tsx'
-import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
+import { useNews } from '@/shared/hooks/use-news.ts'
 import { OneNewsBlock } from '@/features/news-list/one-news-block.tsx'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/shared/types/routes.ts'
 import { Button } from '@/shared/ui/button.tsx'
 import { NoNewsPage } from '@/features/news-list/no-news-page.tsx'
+import { toast } from 'react-toastify'
 
 export const NewsList = () => {
-  const { newsList, setNewsList, deleteNews } = useLocalStorageNews()
+  const { newsList, setNewsList, deleteNews } = useNews({
+    onDelete: () => toast.success('News successfully deleted'),
+  })
 
   const handleDelete = (id: string) => {
     deleteNews(id)

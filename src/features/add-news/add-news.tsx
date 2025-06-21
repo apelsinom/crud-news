@@ -2,19 +2,23 @@ import { type ChangeEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/shared/ui/button.tsx'
 import TextareaAutosize from 'react-textarea-autosize'
-import { useLocalStorageNews } from '@/shared/hooks/useLocalStorageNews.ts'
 import { ROUTES } from '@/shared/types/routes.ts'
-import { convertToBase64 } from '@/shared/hooks/convertToBase64.ts'
+import { convertToBase64 } from '@/shared/lib/convertToBase64.ts'
 import { useForm } from 'react-hook-form'
 import { type FormData, schema } from '@/shared/types/zod-schema.ts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ErrorForInput } from '@/shared/ui/error-for-input.tsx'
+import { toast } from 'react-toastify'
+import { useNews } from '@/shared/hooks/use-news.ts'
 
 export const AddNews = () => {
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
-  const { addNews } = useLocalStorageNews()
   const navigate = useNavigate()
+
+  const { addNews } = useNews({
+    onAdd: () => toast.success('News successfully added'),
+  })
 
   const {
     register,

@@ -1,6 +1,6 @@
 import type { NewsType } from '@/shared/types/news-type.ts'
 
-export const news: NewsType[] = [
+export const defaultNews: NewsType[] = [
   {
     id: '1',
     title: 'Манулы — главные интроверты в мире животных',

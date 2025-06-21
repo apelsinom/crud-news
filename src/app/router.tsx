@@ -3,9 +3,9 @@ import App from '@/app/app.tsx'
 import { createBrowserRouter } from 'react-router-dom'
 import { NewsList } from '@/features/news-list/news-list.tsx'
 import { Error404 } from '@/shared/ui/error-404.tsx'
-import { EditNews } from '@/features/edit-news.tsx'
-import { AddNews } from '@/features/add-news.tsx'
-import { NewsPage } from '@/features/news-page.tsx'
+import { EditNews } from '@/features/edit-news/edit-news.tsx'
+import { AddNews } from '@/features/add-news/add-news.tsx'
+import { NewsPage } from '@/features/news-page/news-page.tsx'
 
 export const router = createBrowserRouter([
   {
