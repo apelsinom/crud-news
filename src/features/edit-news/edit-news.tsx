@@ -71,7 +71,7 @@ export const EditNews = () => {
       content: data.content,
       image: base64Image,
     })
-    navigate(`${ROUTES.NEWS}/${newsId}`)
+    navigate(`/${newsId}`)
   }
 
   const handleRemoveNews = () => {

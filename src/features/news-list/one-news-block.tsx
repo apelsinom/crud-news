@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ROUTES } from '@/shared/types/routes.ts'
 import { Button } from '@/shared/ui/button.tsx'
 import type { NewsType } from '@/shared/types/news-type.ts'
 import { useState } from 'react'
@@ -16,7 +15,7 @@ export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
     <li className="flex flex-col gap-2 pt-3 md:pt-5 border-t border-gray-200">
       <h2 className="text-xl md:text-2xl font-semibold leading-tight">{newsItem.title}</h2>
       {newsItem.image && (
-        <Link to={`${ROUTES.NEWS}/${newsItem.id}`}>
+        <Link to={`/${newsItem.id}`}>
           <img
             src={newsItem.image}
             alt="News"
@@ -29,10 +28,10 @@ export const OneNewsBlock = ({ newsItem, onDelete }: Props) => {
       </p>
       <span className="text-sm text-gray-500 dark:text-gray-400">{newsItem.date}</span>
       <div className="flex gap-1 justify-between sm:justify-start sm:gap-10">
-        <Link to={`${ROUTES.NEWS}/${newsItem.id}`}>
+        <Link to={`/${newsItem.id}`}>
           <Button>Show news</Button>
         </Link>
-        <Link to={`${ROUTES.EDIT}/${newsItem.id}`}>
+        <Link to={`/${newsItem.id}/edit`}>
           <Button variant={'primary'}>Edit news</Button>
         </Link>
         <Button onClick={() => setIsOpenDeleteModal(true)} variant={'danger'}>

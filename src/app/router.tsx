@@ -18,11 +18,11 @@ export const router = createBrowserRouter([
       },
       {
         element: <NewsPage />,
-        path: `${ROUTES.NEWS}/:newsId`,
+        path: ROUTES.NEWS,
       },
       {
         element: <EditNews />,
-        path: `${ROUTES.EDIT}/:newsId`,
+        path: ROUTES.EDIT,
       },
       {
         element: <AddNews />,
