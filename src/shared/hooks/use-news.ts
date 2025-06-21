@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { defaultNews } from '@/shared/hooks/default-news.ts'
 import type { NewsType } from '@/shared/types/news-type.ts'
 
@@ -10,18 +10,15 @@ type Props = {
   onDelete?: () => void
 }
 
-export const useNews = ({ onAdd, onDelete, onUpdate }: Props = {}) => {
-  const [newsList, setNewsList] = useState<NewsType[]>([])
+const getInitialNewsList = (): NewsType[] => {
+  const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
+  if (stored) return JSON.parse(stored) as NewsType[]
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultNews))
+  return defaultNews
+}
 
-  useEffect(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
-    if (stored) {
-      setNewsList(JSON.parse(stored) as NewsType[])
-    } else {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(defaultNews))
-      setNewsList(defaultNews)
-    }
-  }, [])
+export const useNews = ({ onAdd, onDelete, onUpdate }: Props = {}) => {
+  const [newsList, setNewsList] = useState<NewsType[]>(getInitialNewsList)
 
   const save = useCallback((list: NewsType[]) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list))
