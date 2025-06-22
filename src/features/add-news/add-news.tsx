@@ -30,8 +30,8 @@ export const AddNews = () => {
     mode: 'onChange',
   })
 
-  const title = watch('title') || ''
-  const content = watch('content') || ''
+  const title = watch('title')?.trim() || ''
+  const content = watch('content')?.trim() || ''
 
   const onSubmit = async (data: FormData) => {
     let base64Image: string | undefined

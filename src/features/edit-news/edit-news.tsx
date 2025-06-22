@@ -41,6 +41,9 @@ export const EditNews = () => {
     formState: { errors },
   } = form
 
+  const title = watch('title')?.trim() || ''
+  const content = watch('content')?.trim() || ''
+
   const [isOpenDeleteNewsModal, setIsOpenDeleteNewsModal] = useState(false)
   const [isOpenDeleteImageModal, setIsOpenDeleteImageModal] = useState(false)
   const [image, setImage] = useState<File | null>(null)
@@ -105,7 +108,7 @@ export const EditNews = () => {
         />
         <ErrorForInput
           errorMessage={errors.title?.message}
-          inputName={watch('title') || ''}
+          inputName={title}
           maxLengthStr={'100'}
         />
         <div className="flex items-start justify-start gap-5">
@@ -147,7 +150,7 @@ export const EditNews = () => {
         />
         <ErrorForInput
           errorMessage={errors.content?.message}
-          inputName={watch('content') || ''}
+          inputName={content}
           maxLengthStr={'1000'}
         />
         <div className="flex gap-1 justify-between sm:justify-start sm:gap-10">
